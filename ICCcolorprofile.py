@@ -29,7 +29,7 @@ def _read_patch(slide, left_top: Tuple[int, int], level: int, model_patch_size: 
                               level,
                               real_patch_size).convert('RGB')
 
-    patch = ImageCms.applyTransform(patch, _transform).convert('RGB') # 이렇게 적용하면 됩니다
+    patch = patch if _transform is None else ImageCms.applyTransform(patch, _transform).convert('RGB') # 이렇게 적용하면 됩니다
 
     if real_patch_size != (model_patch_size, model_patch_size):
         patch = patch.resize((model_patch_size, model_patch_size))
